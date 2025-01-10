@@ -38,7 +38,7 @@ public class MachineServiceImpl implements IMachineService{
 
     @Override
     public MachineDTO getMachineById(Long id) {
-        Machine machine = machineRepository.findById(id).orElseThrow(() -> new NotFoundException("Machine not found"));
+        Machine machine = machineRepository.findById(id).orElseThrow(() -> new NotFoundException("Machine not found with ID: " + id));
         return MachineMapper.toDTO(machine);
     }
 
@@ -49,7 +49,7 @@ public class MachineServiceImpl implements IMachineService{
 
     @Override
     public MachineDTO updateMachine(Long id, MachineDTO machineDTO) {
-        Machine machine = machineRepository.findById(id).orElseThrow(() -> new NotFoundException("Machine not found"));
+        Machine machine = machineRepository.findById(id).orElseThrow(() -> new NotFoundException("Machine not found with ID: " + id));
         machine.setName(machineDTO.getName());
         machine.setDescription(machineDTO.getDescription());
         machine.setState(machineDTO.getState());
@@ -62,7 +62,7 @@ public class MachineServiceImpl implements IMachineService{
     @Override
     public void deleteMachine(Long id) {
         if (!machineRepository.existsById(id)) {
-            throw new NotFoundException("Machine not found");
+            throw new NotFoundException("Machine not found with ID: " + id);
         }
         machineRepository.deleteById(id);
     }
@@ -70,12 +70,12 @@ public class MachineServiceImpl implements IMachineService{
     @Override
     public MachineServicesDTO addMachineService(Long machineId, MachineServicesDTO machineServicesDTO) {
         Machine machine = machineRepository.findById(machineId)
-                .orElseThrow(() -> new NotFoundException("Machine not found"));
+                .orElseThrow(() -> new NotFoundException("Machine not found with ID: " + machineId));
 
         MachineServices machineService = new MachineServices();
         machineService.setDate(machineServicesDTO.getDate());
         machineService.setDescription(machineServicesDTO.getDescription());
-        machineService.setMachine(machine); // Asignar la máquina al servicio
+        machineService.setMachineId(machine.getId());
 
         machineService = machineServicesRepository.save(machineService);
 
@@ -83,6 +83,16 @@ public class MachineServiceImpl implements IMachineService{
         machineRepository.save(machine);
 
         return MachineMapper.toServiceDTO(machineService);
+    }
+
+    @Override
+    public List<MachineServicesDTO> getServicesByMachineId(Long machineId) {
+        Machine machine = machineRepository.findById(machineId)
+                .orElseThrow(() -> new NotFoundException("Machine not found with ID: " + machineId));
+
+        return machine.getMachineServices().stream()
+                .map(MachineMapper::toServiceDTO)
+                .toList();
     }
 
 

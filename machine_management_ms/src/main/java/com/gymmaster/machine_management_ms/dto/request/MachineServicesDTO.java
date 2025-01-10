@@ -14,5 +14,5 @@ public class MachineServicesDTO{
     private Long id;
     private LocalDate date;
     private String description;
-    private MachineDTO machine;
+    private Long machineId;
 }

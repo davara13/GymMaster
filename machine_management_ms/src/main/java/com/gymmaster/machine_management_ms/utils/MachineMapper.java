@@ -10,6 +10,7 @@ import com.gymmaster.machine_management_ms.entity.Machine;
 import com.gymmaster.machine_management_ms.entity.MachineServices;
 
 public class MachineMapper {
+
     public static MachineDTO toDTO(Machine machine) {
         MachineDTO dto = new MachineDTO();
         dto.setId(machine.getId());
@@ -19,7 +20,6 @@ public class MachineMapper {
         dto.setLastService(machine.getLastService());
         dto.setServiceInterval(machine.getServiceInterval());
 
-        // Manejo de valores nulos en la lista de servicios
         dto.setMachineServices(Optional.ofNullable(machine.getMachineServices())
                 .orElse(Collections.emptyList())
                 .stream()
@@ -34,14 +34,9 @@ public class MachineMapper {
         dto.setId(service.getId());
         dto.setDate(service.getDate());
         dto.setDescription(service.getDescription());
-
-        if (service.getMachine() != null) {
-            dto.setMachine(toDTO(service.getMachine()));
-        }
-
+        dto.setMachineId(service.getMachineId());
         return dto;
     }
-
 
     public static Machine toEntity(MachineDTO dto) {
         Machine machine = new Machine();
@@ -51,6 +46,13 @@ public class MachineMapper {
         machine.setState(dto.getState());
         machine.setLastService(dto.getLastService());
         machine.setServiceInterval(dto.getServiceInterval());
+
+        machine.setMachineServices(Optional.ofNullable(dto.getMachineServices())
+                .orElse(Collections.emptyList())
+                .stream()
+                .map(MachineMapper::toEntity)
+                .collect(Collectors.toList()));
+
         return machine;
     }
 
@@ -59,15 +61,9 @@ public class MachineMapper {
         service.setId(dto.getId());
         service.setDate(dto.getDate());
         service.setDescription(dto.getDescription());
-
-        if (dto.getMachine() != null) {
-            Machine machine = new Machine();
-            machine.setId(dto.getMachine().getId());
-            machine.setName(dto.getMachine().getName());
-            service.setMachine(machine);
-        }
-
+        service.setMachineId(dto.getMachineId());
         return service;
     }
 }
+
 

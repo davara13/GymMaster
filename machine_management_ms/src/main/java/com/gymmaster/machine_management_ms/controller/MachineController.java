@@ -63,4 +63,10 @@ public class MachineController {
         return new ResponseEntity<>(createdService, HttpStatus.CREATED);
     }
 
+    @GetMapping("/{machineId}/services")
+    public ResponseEntity<List<MachineServicesDTO>> getMachineServices(@PathVariable Long machineId) {
+        List<MachineServicesDTO> services = machineService.getServicesByMachineId(machineId);
+        return ResponseEntity.ok(services);
+    }
+
 }

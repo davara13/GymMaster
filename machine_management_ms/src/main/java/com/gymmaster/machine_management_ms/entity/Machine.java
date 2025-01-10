@@ -26,8 +26,7 @@ public class Machine {
     private LocalDate lastService;//Fecha del ultimo mantenimiento realizado
     @Column(name = "service_interval")
     private Integer serviceInterval; // Intervalo de mantenimiento recomendado (en días)
-    @OneToMany(mappedBy = "machine", cascade = CascadeType.ALL, orphanRemoval = true)
-    @ToString.Exclude
-    @JsonIgnore
-    private List<MachineServices> machineServices; // Datos sobre los mantenimientos realizados a la máquina
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "machine_id")
+    private List<MachineServices> machineServices;
 }

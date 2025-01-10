@@ -20,9 +20,7 @@ public class MachineServices {
     private Long id;
     private LocalDate date;
     private String description;
-    @ManyToOne
-    @JoinColumn(name = "machine_id", nullable = false)
-    @ToString.Exclude
-    @JsonIgnore
-    private Machine machine;
+
+    @Column(name = "machine_id", nullable = false)
+    private Long machineId;// ID de la máquina asociada
 }
