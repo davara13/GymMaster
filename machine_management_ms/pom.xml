@@ -83,6 +83,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>machine_management_ms</finalName>
 	</build>
 
 </project>
