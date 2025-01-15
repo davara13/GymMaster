@@ -8,7 +8,7 @@ Aplicación CRUD MS basada en Java para gestionar ejercicios y rutinas. Utiliza 
 
 * Java: 21
 * Framework: Spring Boot 3.4.1
-* Base de Datos: MySQL (hosteada en Clever Cloud)
+* Base de Datos: MySQL
 * Gestión de Dependencias: Maven
 * Librerías Adicionales:
     * Lombok: Simplifica la escritura de código Java.
