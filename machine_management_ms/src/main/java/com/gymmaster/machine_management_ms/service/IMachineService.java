@@ -14,4 +14,5 @@ public interface IMachineService {
     void deleteMachine(Long id);
     MachineServicesDTO addMachineService(Long machineId, MachineServicesDTO machineServicesDTO);
     List<MachineServicesDTO> getServicesByMachineId(Long machineId);
+    List<MachineDTO> getAvalableMachines(String state);
 }

@@ -15,4 +15,7 @@ public interface MachineRepository extends JpaRepository<Machine, Long> {
 
     @Query("SELECT m FROM Machine m WHERE m.lastService <= :date")
     List<Machine> findMachinesDueForService(@Param("date") LocalDate date);
+
+    @Query("SELECT m FROM Machine m WHERE m.lastService <= :state")
+    List<Machine> findMachinesByState(@Param("state") String state);
 }

@@ -95,5 +95,13 @@ public class MachineServiceImpl implements IMachineService{
                 .toList();
     }
 
+    @Override
+    public List<MachineDTO> getAvalableMachines(String state) {
+        List<MachineDTO> machines = machineRepository.findAll().stream().map(MachineMapper::toDTO).collect(Collectors.toList());
+        return machines.stream()
+                .filter(m -> m.getState().equals( state))
+                .toList();
+    }
+
 
 }

@@ -5,14 +5,7 @@ import java.util.List;
 import com.gymmaster.machine_management_ms.dto.request.MachineServicesDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.gymmaster.machine_management_ms.dto.request.MachineDTO;
 import com.gymmaster.machine_management_ms.service.IMachineService;
@@ -69,4 +62,9 @@ public class MachineController {
         return ResponseEntity.ok(services);
     }
 
+    @GetMapping("/avalability")
+    public ResponseEntity<List<MachineDTO>> getAvalableMachines(@RequestParam String state) {
+        List<MachineDTO> machines = machineService.getAvalableMachines(state);
+        return new ResponseEntity<>(machines,HttpStatus.OK);
+    }
 }
