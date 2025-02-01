@@ -68,8 +68,10 @@ cd machine-management-ms
    Para ejecutar la app en local, cargando las variables de entorno desde el archivo `.env` se puede ejecutar:
    * Para Windows (Command Prompt o PowerShell):
      ```bash
-      setlocal enabledelayedexpansion
-      for /f "delims=" %%x in (.env) do set %%x
+         Get-Content .env | ForEach-Object {
+            $name, $value = $_ -split '=', 2
+            [System.Environment]::SetEnvironmentVariable($name, $value)
+         }
      ```
      Se verifica su carga con:
      ```bash
@@ -99,12 +101,12 @@ cd machine-management-ms
 Ubicado en la carpeta raiz se debe ejecutar
 
 ```bash
-./mvnm clean install
+./mvnw clean package
 ```
 
 4. **Ejecutar el microservicio:**
 ```bash
-mvn spring-boot:run
+./mvnw spring-boot:run
 ```
 
 Por defecto, la aplicacion se ejecuta en `http://localhost:8080`.
@@ -121,6 +123,7 @@ Por defecto, la aplicacion se ejecuta en `http://localhost:8080`.
 | GET    | `/` | Listar todas las máquinas. |
 | PUT    | `/{id}` | Actualizar una máquina existente por su ID.  |
 | DELETE | `/{id}` |  Eliminar una máquina por su ID.  |
+| GET | `/avalability?state=` |  Consultar maquinas de acuerdo a su estado  |
 
 ### Servicios de maquina (mantenimientos)
 | Metodo | Endpoint       | Descripción                |
