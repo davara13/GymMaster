@@ -3,6 +3,7 @@ package com.gymmaster.machine_management_ms.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.gymmaster.machine_management_ms.dto.response.TypesMachines;
 import com.gymmaster.machine_management_ms.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -101,6 +102,18 @@ public class MachineServiceImpl implements IMachineService{
         return machines.stream()
                 .filter(m -> m.getState().equals( state))
                 .toList();
+    }
+
+    @Override
+    public TypesMachines getAllTypes() {
+        TypesMachines typesMachines = new TypesMachines(machineRepository.findAllMachineTypes());
+        return typesMachines;
+    }
+
+    @Override
+    public List<MachineDTO> getMachinesByType(String type) {
+        List<MachineDTO> machines = machineRepository.findMachinesByType(type).stream().map(MachineMapper::toDTO).collect(Collectors.toList());
+        return machines;
     }
 
 

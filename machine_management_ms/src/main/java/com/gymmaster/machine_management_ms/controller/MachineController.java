@@ -3,6 +3,7 @@ package com.gymmaster.machine_management_ms.controller;
 import java.util.List;
 
 import com.gymmaster.machine_management_ms.dto.request.MachineServicesDTO;
+import com.gymmaster.machine_management_ms.dto.response.TypesMachines;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -65,6 +66,18 @@ public class MachineController {
     @GetMapping("/avalability")
     public ResponseEntity<List<MachineDTO>> getAvalableMachines(@RequestParam String state) {
         List<MachineDTO> machines = machineService.getAvalableMachines(state);
+        return new ResponseEntity<>(machines,HttpStatus.OK);
+    }
+
+    @GetMapping("/types")
+    public ResponseEntity<TypesMachines> getAllTypes() {
+        TypesMachines typesMachines = machineService.getAllTypes();
+        return new ResponseEntity<>(typesMachines,HttpStatus.OK);
+    }
+
+    @GetMapping("/types/{type}")
+    public ResponseEntity<List<MachineDTO>> getAllTypes(@PathVariable String type) {
+        List<MachineDTO> machines = machineService.getMachinesByType(type);
         return new ResponseEntity<>(machines,HttpStatus.OK);
     }
 }

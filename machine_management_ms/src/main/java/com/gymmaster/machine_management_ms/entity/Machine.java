@@ -25,7 +25,8 @@ public class Machine {
     @Column(name = "last_service")
     private LocalDate lastService;//Fecha del ultimo mantenimiento realizado
     @Column(name = "service_interval")
-    private Integer serviceInterval; // Intervalo de mantenimiento recomendado (en días)
+    private Integer serviceInterval;// Intervalo de mantenimiento recomendado (en días)
+    private String type;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "machine_id")
     private List<MachineServices> machineServices;

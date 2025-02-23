@@ -18,6 +18,7 @@ public class MachineMapper {
         dto.setDescription(machine.getDescription());
         dto.setState(machine.getState());
         dto.setLastService(machine.getLastService());
+        dto.setType(machine.getType());
         dto.setServiceInterval(machine.getServiceInterval());
 
         dto.setMachineServices(Optional.ofNullable(machine.getMachineServices())
@@ -45,6 +46,7 @@ public class MachineMapper {
         machine.setDescription(dto.getDescription());
         machine.setState(dto.getState());
         machine.setLastService(dto.getLastService());
+        machine.setType(dto.getType());
         machine.setServiceInterval(dto.getServiceInterval());
 
         machine.setMachineServices(Optional.ofNullable(dto.getMachineServices())

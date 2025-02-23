@@ -18,5 +18,6 @@ public class MachineDTO{
     private String state;
     private LocalDate lastService;
     private Integer serviceInterval;
+    private String type;
     private List<MachineServicesDTO> machineServices;
 }

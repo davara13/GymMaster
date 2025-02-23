@@ -8,7 +8,7 @@ WORKDIR /app
 COPY target/machine_management_ms.jar app.jar
 
 # Exponer el puerto en el que la app escucha
-EXPOSE 8080
+EXPOSE 8082
 
 # Comando para ejecutar la app
 CMD ["java", "-jar", "app.jar"]
